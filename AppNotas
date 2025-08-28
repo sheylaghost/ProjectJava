@@ -1,10 +1,10 @@
- /**
+/**
  * 📝 App de Notas / Notes App
- * 
+ *
  * 🇧🇷 Um aplicativo simples de anotações em Java Swing.
  * Permite criar, abrir, salvar e editar arquivos de texto (.txt).
  * Inclui atalhos de teclado, menus e interface bilíngue (português e inglês).
- * 
+ *
  * 🇺🇸 A simple notes application built with Java Swing.
  * Allows creating, opening, saving, and editing text files (.txt).
  * Includes keyboard shortcuts, menus, and bilingual interface (Portuguese and English).
@@ -28,7 +28,7 @@ public class AppDeNotas extends JFrame {
         // Configurações básicas da janela
         setTitle("📝 App de Anotações");
         setSize(600, 400);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Usar o listener para fechar
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // corrigido
         setLocationRelativeTo(null);
 
         // Configurar o ícone da aplicação (opcional)
