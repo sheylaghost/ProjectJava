@@ -1,4 +1,17 @@
+ /**
+ * 📝 App de Notas / Notes App
+ * 
+ * 🇧🇷 Um aplicativo simples de anotações em Java Swing.
+ * Permite criar, abrir, salvar e editar arquivos de texto (.txt).
+ * Inclui atalhos de teclado, menus e interface bilíngue (português e inglês).
+ * 
+ * 🇺🇸 A simple notes application built with Java Swing.
+ * Allows creating, opening, saving, and editing text files (.txt).
+ * Includes keyboard shortcuts, menus, and bilingual interface (Portuguese and English).
+ */
+
 import javax.swing.*;
+import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -17,7 +30,7 @@ public class AppDeNotas extends JFrame {
         setSize(600, 400);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Usar o listener para fechar
         setLocationRelativeTo(null);
-        
+
         // Configurar o ícone da aplicação (opcional)
         try {
             setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
@@ -27,7 +40,7 @@ public class AppDeNotas extends JFrame {
 
         // Configurar e adicionar componentes
         configurarComponentes();
-        
+
         // Criar e adicionar o menu
         criarMenu();
 
@@ -43,12 +56,12 @@ public class AppDeNotas extends JFrame {
         areaDeTexto.setFont(new Font("Consolas", Font.PLAIN, 14));
         areaDeTexto.setLineWrap(true);
         areaDeTexto.setWrapStyleWord(true);
-        
+
         // Scroll pane para a área de texto
         JScrollPane scroll = new JScrollPane(areaDeTexto);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
+
         add(scroll, BorderLayout.CENTER);
 
         // Barra de status
@@ -72,7 +85,7 @@ public class AppDeNotas extends JFrame {
         JMenuItem abrirItem = new JMenuItem("📂 Abrir / Open");
         abrirItem.setMnemonic(KeyEvent.VK_O);
         abrirItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
-        
+
         JMenuItem salvarItem = new JMenuItem("💾 Salvar / Save");
         salvarItem.setMnemonic(KeyEvent.VK_S);
         salvarItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
@@ -106,11 +119,11 @@ public class AppDeNotas extends JFrame {
         JMenu menuEditar = new JMenu("Editar / Edit");
         menuEditar.setMnemonic(KeyEvent.VK_E);
 
-        // Ações de texto nativas do JTextArea
-        Action cortar = new JTextArea().getActionMap().get(DefaultEditorKit.cutAction);
-        Action copiar = new JTextArea().getActionMap().get(DefaultEditorKit.copyAction);
-        Action colar = new JTextArea().getActionMap().get(DefaultEditorKit.pasteAction);
-        
+        // Ações de texto nativas do JTextArea (usando a mesma areaDeTexto)
+        Action cortar = areaDeTexto.getActionMap().get(DefaultEditorKit.cutAction);
+        Action copiar = areaDeTexto.getActionMap().get(DefaultEditorKit.copyAction);
+        Action colar  = areaDeTexto.getActionMap().get(DefaultEditorKit.pasteAction);
+
         JMenuItem cortarItem = new JMenuItem(cortar);
         cortarItem.setText("✂️ Cortar / Cut");
         cortarItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
@@ -118,7 +131,7 @@ public class AppDeNotas extends JFrame {
         JMenuItem copiarItem = new JMenuItem(copiar);
         copiarItem.setText("📋 Copiar / Copy");
         copiarItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
-        
+
         JMenuItem colarItem = new JMenuItem(colar);
         colarItem.setText("📄 Colar / Paste");
         colarItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK));
@@ -161,10 +174,10 @@ public class AppDeNotas extends JFrame {
     private void novoArquivo() {
         if (arquivoModificado) {
             int opcao = JOptionPane.showConfirmDialog(this,
-                "Deseja salvar as alterações antes de criar um novo arquivo?\n" +
-                "Do you want to save changes before creating a new file?",
-                "Salvar / Save", JOptionPane.YES_NO_CANCEL_OPTION);
-            
+                    "Deseja salvar as alterações antes de criar um novo arquivo?\n" +
+                            "Do you want to save changes before creating a new file?",
+                    "Salvar / Save", JOptionPane.YES_NO_CANCEL_OPTION);
+
             if (opcao == JOptionPane.YES_OPTION) {
                 salvarArquivo();
                 if (arquivoModificado) return; // Se não conseguiu salvar, não continua
@@ -172,7 +185,7 @@ public class AppDeNotas extends JFrame {
                 return;
             }
         }
-        
+
         areaDeTexto.setText("");
         arquivoAtual = null;
         arquivoModificado = false;
@@ -182,10 +195,10 @@ public class AppDeNotas extends JFrame {
     private void abrirArquivo() {
         if (arquivoModificado) {
             int opcao = JOptionPane.showConfirmDialog(this,
-                "Deseja salvar as alterações antes de abrir outro arquivo?\n" +
-                "Do you want to save changes before opening another file?",
-                "Salvar / Save", JOptionPane.YES_NO_CANCEL_OPTION);
-            
+                    "Deseja salvar as alterações antes de abrir outro arquivo?\n" +
+                            "Do you want to save changes before opening another file?",
+                    "Salvar / Save", JOptionPane.YES_NO_CANCEL_OPTION);
+
             if (opcao == JOptionPane.YES_OPTION) {
                 salvarArquivo();
                 if (arquivoModificado) return;
@@ -196,8 +209,8 @@ public class AppDeNotas extends JFrame {
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
-            "Arquivos de Texto / Text Files (*.txt)", "txt"));
-        
+                "Arquivos de Texto / Text Files (*.txt)", "txt"));
+
         int opcao = fileChooser.showOpenDialog(this);
 
         if (opcao == JFileChooser.APPROVE_OPTION) {
@@ -208,15 +221,15 @@ public class AppDeNotas extends JFrame {
                 arquivoAtual = arquivo;
                 arquivoModificado = false;
                 setTitle("📝 " + arquivo.getName() + " - App de Anotações");
-                
+
                 JOptionPane.showMessageDialog(this,
-                    "Arquivo aberto com sucesso!\nFile opened successfully!",
-                    "Sucesso / Success", JOptionPane.INFORMATION_MESSAGE);
+                        "Arquivo aberto com sucesso!\nFile opened successfully!",
+                        "Sucesso / Success", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(this,
-                    "Erro ao abrir arquivo: " + e.getMessage() + "\n" +
-                    "Error opening file: " + e.getMessage(),
-                    "Erro / Error", JOptionPane.ERROR_MESSAGE);
+                        "Erro ao abrir arquivo: " + e.getMessage() + "\n" +
+                                "Error opening file: " + e.getMessage(),
+                        "Erro / Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -232,18 +245,18 @@ public class AppDeNotas extends JFrame {
     private void salvarComo() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
-            "Arquivos de Texto / Text Files (*.txt)", "txt"));
-        
+                "Arquivos de Texto / Text Files (*.txt)", "txt"));
+
         int opcao = fileChooser.showSaveDialog(this);
 
         if (opcao == JFileChooser.APPROVE_OPTION) {
             File arquivo = fileChooser.getSelectedFile();
-            
+
             // Adicionar extensão .txt se não tiver
             if (!arquivo.getName().toLowerCase().endsWith(".txt")) {
                 arquivo = new File(arquivo.getParentFile(), arquivo.getName() + ".txt");
             }
-            
+
             salvarArquivoEm(arquivo);
             arquivoAtual = arquivo;
             setTitle("📝 " + arquivo.getName() + " - App de Anotações");
@@ -254,26 +267,26 @@ public class AppDeNotas extends JFrame {
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo))) {
             areaDeTexto.write(escritor);
             arquivoModificado = false;
-            
+
             JOptionPane.showMessageDialog(this,
-                "Arquivo salvo com sucesso!\nFile saved successfully!",
-                "Sucesso / Success", JOptionPane.INFORMATION_MESSAGE);
-                
+                    "Arquivo salvo com sucesso!\nFile saved successfully!",
+                    "Sucesso / Success", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this,
-                "Erro ao salvar arquivo: " + e.getMessage() + "\n" +
-                "Error saving file: " + e.getMessage(),
-                "Erro / Error", JOptionPane.ERROR_MESSAGE);
+                    "Erro ao salvar arquivo: " + e.getMessage() + "\n" +
+                            "Error saving file: " + e.getMessage(),
+                    "Erro / Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void sairAplicacao() {
         if (arquivoModificado) {
             int opcao = JOptionPane.showConfirmDialog(this,
-                "Você tem alterações não salvas. Deseja salvar antes de sair?\n" +
-                "You have unsaved changes. Do you want to save before exiting?",
-                "Sair / Exit", JOptionPane.YES_NO_CANCEL_OPTION);
-            
+                    "Você tem alterações não salvas. Deseja salvar antes de sair?\n" +
+                            "You have unsaved changes. Do you want to save before exiting?",
+                    "Sair / Exit", JOptionPane.YES_NO_CANCEL_OPTION);
+
             if (opcao == JOptionPane.YES_OPTION) {
                 salvarArquivo();
                 if (arquivoModificado) return; // Se não conseguiu salvar, não saia
@@ -286,21 +299,21 @@ public class AppDeNotas extends JFrame {
 
     private void mostrarSobre() {
         String mensagem =
-            "📝 App de Anotações v1.0\n" +
-            "🇧🇷 Um simples editor de texto em Java\n" +
-            "🇺🇸 A simple text editor in Java\n\n" +
-            "Desenvolvido com Java Swing\n" +
-            "Developed with Java Swing\n\n" +
-            "Funcionalidades / Features:\n" +
-            "• Novo, Abrir, Salvar arquivos\n" +
-            "• New, Open, Save files\n" +
-            "• Atalhos de teclado\n" +
-            "• Keyboard shortcuts\n" +
-            "• Interface bilíngue\n" +
-            "• Bilingual interface";
+                "📝 App de Anotações v1.0\n" +
+                        "🇧🇷 Um simples editor de texto em Java\n" +
+                        "🇺🇸 A simple text editor in Java\n\n" +
+                        "Desenvolvido com Java Swing\n" +
+                        "Developed with Java Swing\n\n" +
+                        "Funcionalidades / Features:\n" +
+                        "• Novo, Abrir, Salvar arquivos\n" +
+                        "• New, Open, Save files\n" +
+                        "• Atalhos de teclado\n" +
+                        "• Keyboard shortcuts\n" +
+                        "• Interface bilíngue\n" +
+                        "• Bilingual interface";
 
         JOptionPane.showMessageDialog(this, mensagem,
-            "Sobre / About", JOptionPane.INFORMATION_MESSAGE);
+                "Sobre / About", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void main(String[] args) {
