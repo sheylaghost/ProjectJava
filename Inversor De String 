@@ -1,0 +1,24 @@
+pt-BR Sistema inversor de palavras
+
+usa-EN Word inverter system 
+
+import java.util.Scanner;
+
+public class InversorString {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Digite uma palavra ou frase: ");
+        String texto = sc.nextLine();
+
+        String invertido = "";
+
+        // Percorre o texto de trás para frente
+        for (int i = texto.length() - 1; i >= 0; i--) {
+            invertido += texto.charAt(i);
+        }
+
+        System.out.println("Texto invertido: " + invertido);
+        sc.close();
+    }
+}
