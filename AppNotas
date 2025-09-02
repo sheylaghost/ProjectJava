@@ -1,0 +1,110 @@
+null);
+                arquivoAtual = arquivo;
+                arquivoModificado = false;
+                setTitle("📝 " + arquivo.getName() + " - App de Anotações");
+
+                JOptionPane.showMessageDialog(this,
+                        "Arquivo aberto com sucesso!\nFile opened successfully!",
+                        "Sucesso / Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this,
+                        "Erro ao abrir arquivo: " + e.getMessage() + "\n" +
+                                "Error opening file: " + e.getMessage(),
+                        "Erro / Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void salvarArquivo() {
+        if (arquivoAtual == null) {
+            salvarComo();
+        } else {
+            salvarArquivoEm(arquivoAtual);
+        }
+    }
+
+    private void salvarComo() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
+                "Arquivos de Texto / Text Files (*.txt)", "txt"));
+
+        int opcao = fileChooser.showSaveDialog(this);
+
+        if (opcao == JFileChooser.APPROVE_OPTION) {
+            File arquivo = fileChooser.getSelectedFile();
+
+            // Adicionar extensão .txt se não tiver
+            if (!arquivo.getName().toLowerCase().endsWith(".txt")) {
+                arquivo = new File(arquivo.getParentFile(), arquivo.getName() + ".txt");
+            }
+
+            salvarArquivoEm(arquivo);
+            arquivoAtual = arquivo;
+            setTitle("📝 " + arquivo.getName() + " - App de Anotações");
+        }
+    }
+
+    private void salvarArquivoEm(File arquivo) {
+        try (BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivo))) {
+            areaDeTexto.write(escritor);
+            arquivoModificado = false;
+
+            JOptionPane.showMessageDialog(this,
+                    "Arquivo salvo com sucesso!\nFile saved successfully!",
+                    "Sucesso / Success", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao salvar arquivo: " + e.getMessage() + "\n" +
+                            "Error saving file: " + e.getMessage(),
+                    "Erro / Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void sairAplicacao() {
+        if (arquivoModificado) {
+            int opcao = JOptionPane.showConfirmDialog(this,
+                    "Você tem alterações não salvas. Deseja salvar antes de sair?\n" +
+                            "You have unsaved changes. Do you want to save before exiting?",
+                    "Sair / Exit", JOptionPane.YES_NO_CANCEL_OPTION);
+
+            if (opcao == JOptionPane.YES_OPTION) {
+                salvarArquivo();
+                if (arquivoModificado) return; // Se não conseguiu salvar, não saia
+            } else if (opcao == JOptionPane.CANCEL_OPTION) {
+                return;
+            }
+        }
+        System.exit(0);
+    }
+
+    private void mostrarSobre() {
+        String mensagem =
+                "📝 App de Anotações v1.0\n" +
+                        "🇧🇷 Um simples editor de texto em Java\n" +
+                        "🇺🇸 A simple text editor in Java\n\n" +
+                        "Desenvolvido com Java Swing\n" +
+                        "Developed with Java Swing\n\n" +
+                        "Funcionalidades / Features:\n" +
+                        "• Novo, Abrir, Salvar arquivos\n" +
+                        "• New, Open, Save files\n" +
+                        "• Atalhos de teclado\n" +
+                        "• Keyboard shortcuts\n" +
+                        "• Interface bilíngue\n" +
+                        "• Bilingual interface";
+
+        JOptionPane.showMessageDialog(this, mensagem,
+                "Sobre / About", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void main(String[] args) {
+        // Configurar Look and Feel do sistema
+        try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            // Se não conseguir, usa o padrão
+        }
+
+        // Executar na thread de eventos do Swing
+        SwingUtilities.invokeLater(() -> new AppDeNotas());
+    }
+}
