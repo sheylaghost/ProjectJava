@@ -1,4 +1,4 @@
-Sobre o Projeto / About the Project
+Sobre o Projeto / About the Project!
 
 🇧🇷 Português:
 Bem-vindo ao meu projeto de aprendizado diário de Java! 🚀
