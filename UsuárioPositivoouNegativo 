@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+public class ExercicioControle {
+
+    public static void main(String[] args) {
+
+        Scanner entrada = new Scanner(System.in);
+        
+        // Exemplo 1: Usando if/else para verificar o tipo de número
+        System.out.print("Digite um número inteiro: ");
+        int numero = entrada.nextInt();
+
+        if (numero > 0) {
+            System.out.println("O número é positivo.");
+            
+            // Exemplo 2: Usando for para contagem regressiva
+            System.out.println("Iniciando a contagem regressiva de " + numero + "...");
+            for (int i = numero; i >= 0; i--) {
+                System.out.println(i);
+            }
+        } else if (numero < 0) {
+            System.out.println("O número é negativo.");
+        } else {
+            System.out.println("O número é zero.");
+        }
+
+        System.out.println("\n-----------------------------------");
+
+        // Exemplo 3: Usando while para ler múltiplos números
+        int contadorPositivos = 0;
+        int contadorNegativos = 0;
+        int numeroLido;
+
+        System.out.println("Agora, digite uma série de números (digite 0 para sair):");
+
+        do {
+            System.out.print("Digite um número: ");
+            numeroLido = entrada.nextInt();
+            
+            if (numeroLido > 0) {
+                contadorPositivos++;
+            } else if (numeroLido < 0) {
+                contadorNegativos++;
+            }
+        } while (numeroLido != 0);
+
+        System.out.println("\nResumo:");
+        System.out.println("Números positivos digitados: " + contadorPositivos);
+        System.out.println("Números negativos digitados: " + contadorNegativos);
+        
+        entrada.close();
+    }
+}
