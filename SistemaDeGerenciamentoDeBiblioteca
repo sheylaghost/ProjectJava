@@ -1,0 +1,179 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Classe Livro
+class Livro {
+    private String titulo;
+    private String autor;
+    private int anoPublicacao;
+    private boolean disponivel;
+
+    // Construtor
+    public Livro(String titulo, String autor, int anoPublicacao) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anoPublicacao = anoPublicacao;
+        this.disponivel = true; // todo livro começa disponível
+    }
+
+    // Getters e Setters
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public int getAnoPublicacao() {
+        return anoPublicacao;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+
+    @Override
+    public String toString() {
+        return titulo + " - " + autor + " (" + anoPublicacao + ") "
+                + (disponivel ? "[Disponível]" : "[Emprestado]");
+    }
+}
+
+// Classe Biblioteca
+class Biblioteca {
+    private ArrayList<Livro> livros = new ArrayList<>();
+
+    // Adicionar livro
+    public void adicionarLivro(Livro livro) {
+        livros.add(livro);
+    }
+
+    // Emprestar livro pelo título
+    public void emprestarLivro(String titulo) {
+        for (Livro livro : livros) {
+            if (livro.getTitulo().equalsIgnoreCase(titulo)) {
+                if (livro.isDisponivel()) {
+                    livro.setDisponivel(false);
+                    System.out.println("📚 O livro \"" + titulo + "\" foi emprestado com sucesso!");
+                } else {
+                    System.out.println("⚠ O livro \"" + titulo + "\" já está emprestado.");
+                }
+                return;
+            }
+        }
+        System.out.println("❌ Livro não encontrado.");
+    }
+
+    // Devolver livro pelo título
+    public void devolverLivro(String titulo) {
+        for (Livro livro : livros) {
+            if (livro.getTitulo().equalsIgnoreCase(titulo)) {
+                if (!livro.isDisponivel()) {
+                    livro.setDisponivel(true);
+                    System.out.println("✅ O livro \"" + titulo + "\" foi devolvido!");
+                } else {
+                    System.out.println("⚠ O livro \"" + titulo + "\" já estava disponível.");
+                }
+                return;
+            }
+        }
+        System.out.println("❌ Livro não encontrado.");
+    }
+
+    // Listar todos os livros disponíveis
+    public void listarLivrosDisponiveis() {
+        System.out.println("\n📖 Livros disponíveis:");
+        boolean encontrou = false;
+        for (Livro livro : livros) {
+            if (livro.isDisponivel()) {
+                System.out.println(" - " + livro);
+                encontrou = true;
+            }
+        }
+        if (!encontrou) {
+            System.out.println("⚠ Nenhum livro disponível no momento.");
+        }
+    }
+
+    // Buscar livros por autor
+    public void buscarLivroPorAutor(String autor) {
+        System.out.println("\n🔎 Resultados da busca por autor \"" + autor + "\":");
+        boolean encontrou = false;
+        for (Livro livro : livros) {
+            if (livro.getAutor().equalsIgnoreCase(autor)) {
+                System.out.println(" - " + livro);
+                encontrou = true;
+            }
+        }
+        if (!encontrou) {
+            System.out.println("⚠ Nenhum livro encontrado desse autor.");
+        }
+    }
+}
+
+// Classe Principal
+public class SistemaDeGerenciamentoDeBiblioteca {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Biblioteca biblioteca = new Biblioteca();
+        int opcao;
+
+        do {
+            System.out.println("\n===== MENU BIBLIOTECA =====");
+            System.out.println("1 - Adicionar livro");
+            System.out.println("2 - Emprestar livro");
+            System.out.println("3 - Devolver livro");
+            System.out.println("4 - Listar livros disponíveis");
+            System.out.println("5 - Buscar livros por autor");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha: ");
+            opcao = sc.nextInt();
+            sc.nextLine(); // consumir quebra de linha
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Título: ");
+                    String titulo = sc.nextLine();
+                    System.out.print("Autor: ");
+                    String autor = sc.nextLine();
+                    System.out.print("Ano de publicação: ");
+                    int ano = sc.nextInt();
+                    sc.nextLine();
+                    biblioteca.adicionarLivro(new Livro(titulo, autor, ano));
+                    System.out.println("✅ Livro adicionado!");
+                    break;
+                case 2:
+                    System.out.print("Digite o título do livro para emprestar: ");
+                    String tituloEmprestar = sc.nextLine();
+                    biblioteca.emprestarLivro(tituloEmprestar);
+                    break;
+                case 3:
+                    System.out.print("Digite o título do livro para devolver: ");
+                    String tituloDevolver = sc.nextLine();
+                    biblioteca.devolverLivro(tituloDevolver);
+                    break;
+                case 4:
+                    biblioteca.listarLivrosDisponiveis();
+                    break;
+                case 5:
+                    System.out.print("Digite o autor: ");
+                    String autorBusca = sc.nextLine();
+                    biblioteca.buscarLivroPorAutor(autorBusca);
+                    break;
+                case 0:
+                    System.out.println("👋 Saindo...");
+                    break;
+                default:
+                    System.out.println("❌ Opção inválida!");
+            }
+
+        } while (opcao != 0);
+
+        sc.close();
+    }
+}
