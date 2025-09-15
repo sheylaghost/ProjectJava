@@ -1,0 +1,201 @@
+/*
+* Sistema de Processamento de Pedidos em Loja Online - Resumo
+*
+* 1. Classe Pedido
+*    - Representa um pedido da loja
+*    - Atributos: id, nomeProduto, quantidade, status (PENDENTE, PROCESSANDO, CONCLUIDO)
+*
+* 2. Classe ProcessadorPedido (Thread)
+*    - Cada pedido é processado em uma thread separada
+*    - Simula tempo de processamento (Thread.sleep)
+*    - Atualiza o status do pedido
+*    - Loga no console o andamento
+*
+* 3. Classe Loja
+*    - Contém lista sincronizada de pedidos (Collections.synchronizedList)
+*    - Métodos:
+*       - adicionarPedido(Pedido pedido)
+*       - processarPedidos() -> processa todos os pedidos simultaneamente
+*       - listarPedidos()
+*       - salvarPedidosEmArquivo(String caminho)
+*       - carregarPedidosDoArquivo(String caminho)
+*    - Processa pedidos com prioridade para maiores quantidades
+*
+* 4. Classe SistemaLoja (Main)
+*    - Menu interativo:
+*       1 - Adicionar pedido
+*       2 - Processar pedidos
+*       3 - Listar pedidos
+*       4 - Salvar em arquivo
+*       5 - Carregar de arquivo
+*       0 - Sair
+*
+* 5. Conceitos Avançados utilizados
+*    - Threads para processamento paralelo
+*    - Lista sincronizada para segurança com múltiplas threads
+*    - Arquivos para salvar e carregar pedidos
+*    - Logs no console para acompanhar o status
+*/
+
+import java.io.*;
+import java.util.*;
+
+enum Status {
+    PENDENTE, PROCESSANDO, CONCLUIDO
+}
+
+class Pedido {
+    private int id;
+    private String nomeProduto;
+    private int quantidade;
+    private Status status;
+
+    public Pedido(int id, String nomeProduto, int quantidade) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.quantidade = quantidade;
+        this.status = Status.PENDENTE;
+    }
+
+    public int getId() { return id; }
+    public String getNomeProduto() { return nomeProduto; }
+    public int getQuantidade() { return quantidade; }
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", produto='" + nomeProduto + '\'' +
+                ", quantidade=" + quantidade +
+                ", status=" + status +
+                '}';
+    }
+}
+
+class ProcessadorPedido extends Thread {
+    private Pedido pedido;
+
+    public ProcessadorPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    @Override
+    public void run() {
+        try {
+            pedido.setStatus(Status.PROCESSANDO);
+            System.out.println("Processando pedido " + pedido.getId() + "...");
+            Thread.sleep(1000 + new Random().nextInt(2000)); // 1 a 3 segundos
+            pedido.setStatus(Status.CONCLUIDO);
+            System.out.println("Pedido " + pedido.getId() + " concluído!");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Loja {
+    private List<Pedido> filaPedidos = Collections.synchronizedList(new ArrayList<>());
+
+    public void adicionarPedido(Pedido pedido) {
+        filaPedidos.add(pedido);
+        System.out.println("Pedido " + pedido.getId() + " adicionado.");
+    }
+
+    public void processarPedidos() {
+        List<ProcessadorPedido> threads = new ArrayList<>();
+        // Ordena por quantidade (maior primeiro)
+        filaPedidos.sort((p1, p2) -> Integer.compare(p2.getQuantidade(), p1.getQuantidade()));
+
+        for (Pedido pedido : filaPedidos) {
+            if (pedido.getStatus() == Status.PENDENTE) {
+                ProcessadorPedido thread = new ProcessadorPedido(pedido);
+                threads.add(thread);
+                thread.start();
+            }
+        }
+
+        // Espera todas as threads terminarem
+        for (ProcessadorPedido t : threads) {
+            try { t.join(); } catch (InterruptedException e) { e.printStackTrace(); }
+        }
+
+        System.out.println("Todos os pedidos foram processados!");
+    }
+
+    public void salvarPedidosEmArquivo(String caminho) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminho))) {
+            for (Pedido p : filaPedidos) {
+                bw.write(p.getId() + ";" + p.getNomeProduto() + ";" + p.getQuantidade() + ";" + p.getStatus());
+                bw.newLine();
+            }
+            System.out.println("Pedidos salvos em " + caminho);
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    public void carregarPedidosDoArquivo(String caminho) {
+        try (BufferedReader br = new BufferedReader(new FileReader(caminho))) {
+            filaPedidos.clear();
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] parts = linha.split(";");
+                Pedido p = new Pedido(Integer.parseInt(parts[0]), parts[1], Integer.parseInt(parts[2]));
+                p.setStatus(Status.valueOf(parts[3]));
+                filaPedidos.add(p);
+            }
+            System.out.println("Pedidos carregados de " + caminho);
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    public void listarPedidos() {
+        filaPedidos.forEach(System.out::println);
+    }
+}
+
+public class SistemaLoja {
+    public static void main(String[] args) {
+        Loja loja = new Loja();
+        Scanner sc = new Scanner(System.in);
+        int opcao;
+
+        do {
+            System.out.println("\n1- Adicionar Pedido\n2- Processar Pedidos\n3- Listar Pedidos\n4- Salvar em arquivo\n5- Carregar de arquivo\n0- Sair");
+            opcao = sc.nextInt();
+            sc.nextLine(); // consumir enter
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("ID: ");
+                    int id = sc.nextInt(); sc.nextLine();
+                    System.out.print("Nome Produto: ");
+                    String nome = sc.nextLine();
+                    System.out.print("Quantidade: ");
+                    int qtd = sc.nextInt(); sc.nextLine();
+                    loja.adicionarPedido(new Pedido(id, nome, qtd));
+                    break;
+                case 2:
+                    loja.processarPedidos();
+                    break;
+                case 3:
+                    loja.listarPedidos();
+                    break;
+                case 4:
+                    System.out.print("Caminho do arquivo: ");
+                    String caminhoSalvar = sc.nextLine();
+                    loja.salvarPedidosEmArquivo(caminhoSalvar);
+                    break;
+                case 5:
+                    System.out.print("Caminho do arquivo: ");
+                    String caminhoCarregar = sc.nextLine();
+                    loja.carregarPedidosDoArquivo(caminhoCarregar);
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        } while (opcao != 0);
+    }
+}
