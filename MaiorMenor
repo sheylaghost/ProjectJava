@@ -1,0 +1,23 @@
+/*
+ Exercicio:
+ Faça um algoritmo que leia dois números e imprima qual é o maior e qual é o menor deles.
+*/
+
+import javax.swing.*;
+
+public class MaiorMenor {
+    public static void main(String[] args) {
+        int valor1, valor2;
+
+        valor1 = Integer.parseInt(JOptionPane.showInputDialog("Digite o primeiro valor: "));
+        valor2 = Integer.parseInt(JOptionPane.showInputDialog("Digite o segundo valor: "));
+
+        if (valor1 > valor2) {
+            JOptionPane.showMessageDialog(null, "Maior valor: " + valor1 +
+                    "\nMenor valor: " + valor2);
+        } else {
+            JOptionPane.showMessageDialog(null, "Maior valor: " + valor2 +
+                    "\nMenor valor: " + valor1);
+        }
+    }
+}
