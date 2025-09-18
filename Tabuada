@@ -1,0 +1,27 @@
+# Programa de Tabuada em Java
+
+Este programa em Java solicita um número ao usuário e, em seguida, exibe a tabuada completa desse número, utilizando um loop `for`.
+
+## Como usar
+
+1.  Execute o script.
+2.  O programa pedirá para você digitar um número.
+3.  Digite o número da tabuada que você deseja ver (por exemplo, `7`).
+4.  Pressione `Enter`.
+
+O resultado será a tabuada completa do número escolhido, de 1 a 10.
+
+import java.util.Scanner;
+
+public class Tabuada {
+    public static void main(String[] args) {
+
+    System.out.println("Digite a tabuada que voce deseja: ");
+    Scanner in = new Scanner(System.in);
+    int tabuada = in.nextInt();
+
+    for (int i = 10; i >= 1;  i--){
+        System.out.println(tabuada + " x " + i + " = " + (tabuada*i));
+    }
+    }
+}
