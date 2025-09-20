@@ -1,0 +1,53 @@
+/*
+ * Exercício 02
+ * Escreva, compile e teste uma classe que exiba sua citação de filme favorita,
+ * o filme de onde ela vem, o personagem que a disse e o ano do filme.
+ * Salve a classe como MovieQuoteInfo.java
+ */
+
+
+import java.util.Scanner;
+
+public class MovieInfo {
+    public static void main(String[] args) {
+        Scanner leitor = new Scanner(System.in);
+        int opcao;
+
+        // Menu
+        System.out.println("Escolha um filme: ");
+        System.out.println("1 - De Repente 30");
+        System.out.println("2 - Homem-Aranha");
+        System.out.println("3 - Viúva Negra");
+        opcao = leitor.nextInt();
+
+        System.out.println();
+
+        switch (opcao) {
+            case 1:
+                System.out.println("\"Eu quero ter 30 anos, ser sexy e bem-sucedida.\"");
+                System.out.println("Filme: De Repente 30");
+                System.out.println("Personagem: Jenna Rink");
+                System.out.println("Ano: 2004");
+                break;
+
+            case 2:
+                System.out.println("\"Com grandes poderes vêm grandes responsabilidades.\"");
+                System.out.println("Filme: Homem-Aranha");
+                System.out.println("Personagem: Tio Ben");
+                System.out.println("Ano: 2002");
+                break;
+
+            case 3:
+                System.out.println("\"Eu tenho contas a ajustar.\"");
+                System.out.println("Filme: Viúva Negra");
+                System.out.println("Personagem: Natasha Romanoff");
+                System.out.println("Ano: 2021");
+                break;
+
+            default:
+                System.out.println("Opção inválida!");
+        }
+
+        leitor.close();
+    }
+}
