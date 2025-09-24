@@ -1,0 +1,75 @@
+/**
+ * Exercício: Envio de Mensagens de Marketing com Interfaces
+ *
+ * **Problema:** Desenvolver um sistema que possa enviar a mesma mensagem de marketing para diferentes canais de comunicação (SMS, E-mail, Redes Sociais e WhatsApp). O sistema deve ser flexível para que novos serviços de envio possam ser adicionados no futuro sem alterar a lógica principal.
+ *
+ * **Solução:** A solução implementa o princípio da **Programação Orientada a Interfaces**.
+ * - Uma **interface comum** (`ServicoMensagem`) é criada com o método `enviar(String mensagem)`.
+ * - Cada serviço de comunicação (como `ServicoSMS`, `ServicoEmail`, etc.) **implementa** essa interface e fornece sua própria lógica para o método `enviar`.
+ * - Na classe principal (`Main`), a aplicação usa a interface para interagir com todos os serviços de forma genérica, garantindo que a mesma mensagem seja enviada a todos eles de maneira consistente.
+ *
+ * **Conceitos Demonstrados:**
+ * - **Interfaces:** Definição de contratos de comportamento.
+ * - **Polimorfismo:** Capacidade de objetos de diferentes classes de serem tratados como objetos de uma mesma interface.
+ * - **Reutilização de Código:** A lógica de envio pode ser facilmente expandida para novos canais.
+ */
+
+
+class ServicoTelemarketing {
+
+    // A interface que define o contrato de envio de mensagens
+    public interface ServicoMensagem {
+        void enviar(String mensagem);
+    }
+
+    // Classes que implementam a interface, aninhadas na classe principal
+    public static class ServicoSMS implements ServicoMensagem {
+        @Override
+        public void enviar(String mensagem) {
+            System.out.println("Enviando via SMS: \"" + mensagem + "\"");
+        }
+    }
+
+    public static class ServicoEmail implements ServicoMensagem {
+        @Override
+        public void enviar(String mensagem) {
+            System.out.println("Enviando via E-mail: \"" + mensagem + "\"");
+        }
+    }
+
+    public static class ServicoRedesSociais implements ServicoMensagem {
+        @Override
+        public void enviar(String mensagem) {
+            System.out.println("Enviando via Redes Sociais: \"" + mensagem + "\"");
+        }
+    }
+
+    public static class ServicoWhatsApp implements ServicoMensagem {
+        @Override
+        public void enviar(String mensagem) {
+            System.out.println("Enviando via WhatsApp: \"" + mensagem + "\"");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        // A mensagem de marketing que será enviada
+        String mensagemMarketing = "Olá! Não perca nossa promoção especial. Acesse nosso site e confira as novidades!";
+
+        // Criando uma lista de serviços de mensagem
+        ServicoMensagem[] servicos = new ServicoMensagem[4];
+        servicos[0] = new ServicoSMS();
+        servicos[1] = new ServicoEmail();
+        servicos[2] = new ServicoRedesSociais();
+        servicos[3] = new ServicoWhatsApp();
+
+        System.out.println("Iniciando envio de mensagem de marketing...");
+
+        // Iterando sobre a lista e enviando a mesma mensagem para cada serviço
+        for (ServicoMensagem servico : servicos) {
+            servico.enviar(mensagemMarketing);
+        }
+
+        System.out.println("\nEnvio de mensagens concluído!");
+    }
+}
