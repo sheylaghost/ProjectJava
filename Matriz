@@ -1,0 +1,46 @@
+/*
+ Esse programa em Java cria e imprime uma matriz de números inteiros 
+ gerados aleatoriamente. 
+
+ A matriz é formada a partir do método criaMatriz, que recebe o número 
+ de linhas e colunas e a preenche com valores de 0 a 99 usando a classe Random. 
+
+ Depois, o método imprimeMatriz percorre cada elemento e mostra a matriz 
+ organizada no console, com os números separados por tabulação. 
+
+ No método main, a matriz é criada com tamanho 3x4 e exibida. 
+
+ Assim, o código serve para treinar o uso de matrizes, laços de repetição 
+ e geração de números aleatórios em Java.
+*/
+
+
+import java.util.Random;
+
+public class Matriz {
+    static int[][] criaMatriz(int N, int M) {
+        int[][] matriz = new int[N][M];
+        Random gerador = new Random();
+
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                matriz[i][j] = gerador.nextInt(100); // números de 0 a 99
+            }
+        }
+        return matriz;
+    }
+
+    static void imprimeMatriz(int[][] matriz) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                System.out.print(matriz[i][j] + "\t");
+            }
+            System.out.print("\n");
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] matriz = criaMatriz(3, 4);
+        imprimeMatriz(matriz);
+    }
+}
