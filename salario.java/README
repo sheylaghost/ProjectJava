@@ -1,0 +1,56 @@
+# 🧩 Descrição do Exercício — Controle de Estoque em Java
+
+Este projeto tem como objetivo praticar os conceitos fundamentais da linguagem Java, como leitura de dados com Scanner, manipulação de variáveis, métodos, classes e objetos.
+
+O programa simula um sistema simples de controle de estoque de produtos.
+Ele lê as informações de um produto e permite adicionar ou remover quantidades do estoque, atualizando o valor total automaticamente.
+
+💻 Como o programa funciona
+
+O usuário informa:
+
+Nome do produto
+
+Preço unitário
+
+Quantidade em estoque
+
+O programa calcula e exibe o valor total do estoque (preço × quantidade).
+
+Em seguida, o usuário pode:
+
+Adicionar mais unidades do produto → o estoque aumenta.
+
+Remover unidades do produto → o estoque diminui.
+
+Após cada operação, o programa exibe novamente os dados atualizados.
+
+🧠 Conceitos utilizados
+
+Classe Produto:
+Representa o produto e contém os atributos e métodos responsáveis por controlar o estoque.
+
+valorTotalEmEstoque() → calcula o valor total do estoque.
+
+adicionarProdutos(int quantidade) → adiciona uma quantidade ao estoque.
+
+removerProdutos(int quantidade) → remove uma quantidade do estoque.
+
+toString() → retorna os dados formatados do produto.
+
+Classe Estoque (principal):
+Responsável por interagir com o usuário, receber as entradas e chamar os métodos da classe Produto.
+
+Scanner:
+Utilizado para capturar as entradas do usuário (nome, preço e quantidade).
+
+Tipos de dados:
+
+String → texto (nome do produto)
+
+double → números decimais (preço)
+
+int → números inteiros (quantidade)
+
+Formatação de saída:
+O método String.format("%.2f", valor) é usado para mostrar os preços com duas casas decimais.
