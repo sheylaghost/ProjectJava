@@ -1,0 +1,97 @@
+README.md
+# 🤖 Assistente Virtual com Memória – Java  
+# 🤖 Virtual Assistant with Memory – Java  
+
+---
+
+## 💡 Descrição | Description  
+
+**🇧🇷 Português:**  
+Este projeto é um **assistente virtual simples** feito em **Java**, que **aprende novas respostas** e **lembra o que aprendeu** mesmo depois de fechar o programa.  
+Ele interage com o usuário pelo **console** e simula emoções com **emojis aleatórios**.  
+
+É ideal para quem quer praticar:  
+- Lógica de programação 🧠  
+- Estruturas de dados (`HashMap`)  
+- Manipulação de arquivos (`FileWriter`, `FileReader`)  
+- Interação com o usuário (`Scanner`)  
+
+**🇬🇧 English:**  
+This project is a **simple virtual assistant** built in **Java** that **learns new answers** and **remembers what it learned** even after the program is closed.  
+It interacts with the user through the **console** and simulates emotions with **random emojis**.  
+
+Perfect for practicing:  
+- Programming logic 🧠  
+- Data structures (`HashMap`)  
+- File handling (`FileWriter`, `FileReader`)  
+- User interaction (`Scanner`)  
+
+---
+
+## ⚙️ Funcionalidades | Features  
+
+**🇧🇷 Português:**  
+✅ O assistente aprende novas respostas durante a conversa.  
+✅ Ele grava tudo no arquivo `memoria.txt` e carrega quando o programa é aberto novamente.  
+✅ Usa emojis para deixar as respostas mais humanas.  
+✅ Possui o comando `/sair` para encerrar o chat.  
+
+**🇬🇧 English:**  
+✅ The assistant learns new responses during the conversation.  
+✅ It saves everything in `memoria.txt` and loads it again when reopened.  
+✅ Uses emojis to make answers feel more human.  
+✅ Has the `/exit` command to end the chat.  
+
+---
+
+## 🧩 Como funciona | How it works  
+
+**🇧🇷 Português:**  
+1. O programa pede o nome do assistente.  
+2. Você faz perguntas ou fala algo.  
+3. Se o assistente souber, ele responde.  
+4. Se não souber, ele pede para você ensinar e salva o aprendizado.  
+5. Ao encerrar, tudo é gravado no arquivo `memoria.txt`.  
+
+**🇬🇧 English:**  
+1. The program asks for the assistant’s name.  
+2. You ask questions or say something.  
+3. If the assistant knows the answer, it replies.  
+4. If not, it asks you to teach it and saves the new knowledge.  
+5. When you exit, everything is saved in the `memoria.txt` file.  
+
+---
+
+## 💻 Como rodar no celular | How to run on mobile  
+
+**🇧🇷 Português:**  
+1. Baixe o app **Jvdroid** (disponível na Play Store).  
+2. Crie um novo arquivo Java (`Main.java`).  
+3. Cole o código completo do assistente.  
+4. Clique em ▶️ para rodar.  
+5. Converse com o assistente!  
+
+**🇬🇧 English:**  
+1. Download the **Jvdroid** app (available on the Play Store).  
+2. Create a new Java file (`Main.java`).  
+3. Paste the full assistant code.  
+4. Tap ▶️ to run.  
+5. Chat with your assistant!  
+
+---
+
+## 🧰 Tecnologias usadas | Technologies used  
+
+- Java 8+  
+- Jvdroid (Android)  
+- File manipulation  
+- HashMap for storing answers  
+
+---
+
+## 🧑‍💻 Autor | Author  
+
+**Criado por / Created by:**  
+**Eyshila Ivanha de Brito** 🩵  
+Um projeto feito para praticar Java de forma divertida e criativa.  
+A project made to practice Java in a fun and creative way.
