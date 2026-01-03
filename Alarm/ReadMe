@@ -1,1 +1,83 @@
+⏰ Java Alarm Clock
 
+BR - Português
+
+Este projeto é um relógio despertador em Java executado no terminal.
+O usuário define um horário e, quando ele é atingido, o programa toca um arquivo de áudio no formato .wav.
+
+O projeto utiliza LocalTime, Thread e a API de áudio do Java, sendo indicado para prática de concorrência e manipulação de tempo.
+
+Funcionalidades
+
+Definição de horário no formato HH:mm:ss
+
+Exibição do relógio em tempo real no terminal
+
+Reprodução de áudio ao atingir o horário do alarme
+
+Parada do alarme ao pressionar Enter
+
+Tecnologias
+
+Java
+
+IntelliJ IDEA
+
+Git e GitHub
+
+Estrutura
+src/main/java/alarm
+ ├─ Main.java
+ └─ AlarmClock.java
+
+Execução
+
+Clone o repositório
+
+Abra no IntelliJ IDEA
+
+Ajuste o caminho do arquivo .wav
+
+Execute a classe Main
+
+⏰ Java Alarm Clock
+
+English
+
+This project is a Java alarm clock that runs in the terminal.
+The user sets a time, and when it is reached, the program plays a .wav audio file.
+
+The project uses LocalTime, Thread, and Java’s audio API, making it suitable for practicing concurrency and time handling.
+
+Features
+
+Alarm time input using HH:mm:ss
+
+Real-time clock display in the terminal
+
+Audio playback when the alarm time is reached
+
+Stop the alarm by pressing Enter
+
+Technologies
+
+Java
+
+IntelliJ IDEA
+
+Git and GitHub
+
+Structure
+src/main/java/alarm
+ ├─ Main.java
+ └─ AlarmClock.java
+
+Running
+
+Clone the repository
+
+Open it in IntelliJ IDEA
+
+Set the correct .wav file path
+
+Run the Main class
