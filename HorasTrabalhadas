@@ -1,0 +1,44 @@
+/**
+ * Exercício: Cálculo de Salário de Funcionário
+ * * Este programa em Java é um exemplo simples de como capturar dados do usuário e realizar um cálculo básico. 
+ * O objetivo é demonstrar o uso da classe `Scanner` para interagir com o usuário e a manipulação de variáveis para 
+ * armazenar e processar informações.
+ *
+ * Descrição do Código:
+ *
+ * 1.  **Declaração de Variáveis:** O código declara as variáveis `idFuncionario`, `horasTrabalhadas` e `valorHora` 
+ * para guardar os dados que serão fornecidos pelo usuário. A variável `salario` é criada para armazenar o 
+ * resultado do cálculo.
+ *
+ * 2.  **Entrada de Dados:** Usando a classe `Scanner`, o programa exibe mensagens na tela para solicitar ao usuário 
+ * que digite o ID do funcionário, a quantidade de horas trabalhadas e o valor da hora.
+ *
+ * 3.  **Cálculo:** O salário é calculado multiplicando as `horasTrabalhadas` pelo `valorHora`.
+ *
+ * 4.  **Saída de Dados:** Finalmente, o programa imprime o ID do funcionário e o salário final na tela, 
+ * apresentando o resultado de forma clara.
+ */
+
+package ExerciciosIntrodutorios;
+
+import java.util.Scanner;
+
+public class HorasTrabalhadas {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite o seu ID: ");
+        int idFuncionario = scanner.nextInt();
+
+        System.out.println("Digite a quantidade de horas trabalhadas: ");
+        double horasTrabalhadas = scanner.nextDouble();
+
+        System.out.println("Digite o valor da sua hora R$: ");
+        double valorHora  = scanner.nextDouble();
+
+        double salario =  horasTrabalhadas * valorHora;
+
+        System.out.println("Número: " + idFuncionario);
+        System.out.println("Salário R$ " + salario);
+    }
+}

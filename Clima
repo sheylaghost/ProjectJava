@@ -1,0 +1,29 @@
+* Crie um algoritmo que, dada uma temperatura em graus célsius, exiba uma mensagem informando o tipo do clima, de acordo com as seguintes condições:  
+  * Se a temperatura estiver até 18 graus, o clima é **frio**.  
+  * Se a temperatura estiver entre 19 e 23 graus, o clima é **agradável**.  
+  * Se a temperatura estiver entre 24 e 35 graus, o clima é **quente**.  
+  * Se a temperatura estiver acima de 35 graus, o clima é **muito quente**.  
+
+---
+
+import java.util.Scanner;
+
+public class Clima {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int temp;
+
+        System.out.println("Digite o valor da temperatura: ");
+        temp = teclado.nextInt();
+
+        if (temp <= 18) {
+            System.out.println("Clima frio ");
+        } else if (temp > 18 && temp <= 23) {
+            System.out.println("Clima agradável! ");
+        } else if (temp > 23 && temp <= 35) {
+            System.out.println("Clima quente");
+        } else {
+            System.out.println("Clima muito quente!");
+        }
+    }
+}

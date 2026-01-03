@@ -1,0 +1,51 @@
+/**
+ * Desafio: Encontrar o Índice da Primeira Ocorrência em uma String (strStr)
+ *
+ * Objetivo: Dado um 'haystack' e um 'needle', retorna o índice da primeira 
+ * ocorrência de 'needle' em 'haystack', ou -1 se não for encontrada.
+ */
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int n = haystack.length();
+        int m = needle.length();
+
+        // 1. Caso Trivial: Se a needle for vazia, a especificação geralmente
+        // requer que retorne 0 (ocorrência no início).
+        if (m == 0) {
+            return 0;
+        }
+
+        // 2. Itera na 'haystack' usando o ponteiro 'i'
+        // O loop para quando a 'needle' (tamanho m) não pode mais caber.
+        for (int i = 0; i <= n - m; i++) {
+            
+            // 3. Verifica a Substring:
+            // Compara a seção da 'haystack' que começa em 'i' e tem o tamanho de 'needle'
+            
+            // Opção A: Usando o método nativo substring (mais legível)
+            // String sub = haystack.substring(i, i + m);
+            // if (sub.equals(needle)) {
+            //     return i;
+            // }
+
+            // Opção B: Comparação manual caractere por caractere (mais purista)
+            boolean match = true;
+            for (int j = 0; j < m; j++) {
+                // Compara o caractere atual da 'haystack' (i + j) 
+                // com o caractere correspondente da 'needle' (j)
+                if (haystack.charAt(i + j) != needle.charAt(j)) {
+                    match = false;
+                    break; // Sai do loop interno e tenta a próxima posição 'i'
+                }
+            }
+
+            // Se o loop interno terminou e 'match' ainda é verdadeiro, encontramos!
+            if (match) {
+                return i;
+            }
+        }
+
+        // 4. Se o loop terminar sem encontrar correspondência
+        return -1;
+    }
+}

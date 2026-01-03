@@ -1,0 +1,55 @@
+/**
+ * Exercício: Locadora de Vídeos
+ * * Uma locadora de vídeos tem guardada, em um vetor de 50 posições, a quantidade de
+ * filmes retirados por cada um de seus clientes durante o ano de 2016.
+ * * Agora, a locadora está fazendo uma promoção: para cada 10 filmes retirados, o cliente
+ * tem direito a uma locação grátis.
+ * * Faça um programa Java que:
+ * 1. Crie um vetor para armazenar a quantidade de locações gratuitas a que cada cliente tem direito.
+ * 2. Preencha esse vetor com os valores calculados.
+ * 3. Ao final, imprima para cada cliente o número de filmes retirados e o total de locações gratuitas
+ * a que ele tem direito.
+ * 4. Imprima também o número total de locações grátis de toda a locadora.
+ */
+
+
+import java.util.Random;
+
+public class LocadoraVideos {
+
+    public static void main(String[] args) {
+
+        // Cria um vetor de 50 posições para a quantidade de filmes retirados
+        int[] filmesRetirados = new int[50];
+
+        // Preenche o vetor com dados aleatórios para simulação
+        Random rand = new Random();
+        for (int i = 0; i < filmesRetirados.length; i++) {
+            // Gera um número aleatório de filmes retirados entre 0 e 100
+            filmesRetirados[i] = rand.nextInt(101);
+        }
+
+        // Cria um novo vetor para a quantidade de locações gratuitas
+        int[] locacoesGratis = new int[50];
+        int totalLocacoesGratis = 0;
+
+        // Itera sobre o vetor de filmes retirados
+        for (int i = 0; i < filmesRetirados.length; i++) {
+            // Calcula o número de locações gratuitas para o cliente
+            locacoesGratis[i] = filmesRetirados[i] / 10;
+
+            // Adiciona o valor ao total geral
+            totalLocacoesGratis += locacoesGratis[i];
+
+            // Imprime o resultado para cada cliente
+            System.out.println("Cliente " + (i + 1) + ":");
+            System.out.println(" - Filmes retirados: " + filmesRetirados[i]);
+            System.out.println(" - Locações gratuitas: " + locacoesGratis[i] + "\n");
+        }
+
+        // Imprime o total de locações gratuitas da locadora
+        System.out.println("----------------------------------------");
+        System.out.println("Total de locações grátis da locadora: " + totalLocacoesGratis);
+        System.out.println("----------------------------------------");
+    }
+}

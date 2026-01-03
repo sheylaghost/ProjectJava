@@ -1,0 +1,181 @@
+# Sistema Escolar em Java 🎓
+
+## Descrição / Description
+Este projeto é um **Sistema Escolar em Java** desenvolvido para praticar Programação Orientada a Objetos (POO), listas (`ArrayList`) e interação com o usuário via console.  
+O sistema permite cadastrar alunos, adicionar notas, calcular médias e verificar se o aluno foi aprovado ou reprovado.  
+
+This project is a **School System in Java** developed to practice Object-Oriented Programming (OOP), lists (`ArrayList`), and console-based user interaction.  
+The system allows registering students, adding grades, calculating averages, and checking if the student is approved or failed.  
+
+---
+
+## Funcionalidades / Features
+- Cadastrar alunos com nome e matrícula / Register students with name and ID
+- Adicionar notas aos alunos / Add grades to students
+- Calcular a média das notas / Calculate the average grade
+- Verificar se o aluno está aprovado (média ≥ 7) / Check if the student is approved (average ≥ 7)
+- Listar todos os alunos com suas médias e situação / List all students with their averages and status
+- Buscar aluno por matrícula / Search student by ID
+
+---
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Classe Aluno
+class Aluno {
+    private String nome;
+    private int matricula;
+    private ArrayList<Double> notas;
+
+    public Aluno(String nome, int matricula) {
+        this.nome = nome;
+        this.matricula = matricula;
+        this.notas = new ArrayList<>();
+    }
+
+    public void adicionarNota(double nota) {
+        notas.add(nota);
+    }
+
+    public double calcularMedia() {
+        if (notas.isEmpty()) return 0.0;
+
+        double soma = 0;
+        for (double n : notas) {
+            soma += n;
+        }
+        return soma / notas.size();
+    }
+
+    public boolean aprovado() {
+        return calcularMedia() >= 7.0;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public ArrayList<Double> getNotas() {
+        return notas;
+    }
+}
+
+// Classe Escola
+class Escola {
+    private ArrayList<Aluno> alunos;
+
+    public Escola() {
+        alunos = new ArrayList<>();
+    }
+
+    public void adicionarAluno(Aluno aluno) {
+        alunos.add(aluno);
+    }
+
+    public void listarAlunos() {
+        if (alunos.isEmpty()) {
+            System.out.println("⚠ Nenhum aluno cadastrado.");
+            return;
+        }
+        for (Aluno aluno : alunos) {
+            System.out.println("Nome: " + aluno.getNome() +
+                               " | Matrícula: " + aluno.getMatricula() +
+                               " | Média: " + aluno.calcularMedia() +
+                               " | Situação: " + (aluno.aprovado() ? "Aprovado" : "Reprovado"));
+        }
+    }
+
+    public Aluno buscarAlunoPorMatricula(int matricula) {
+        for (Aluno aluno : alunos) {
+            if (aluno.getMatricula() == matricula) {
+                return aluno;
+            }
+        }
+        return null;
+    }
+}
+
+// Classe principal com menu
+public class SistemaEscolar {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Escola escola = new Escola();
+        int opcao;
+
+        do {
+            System.out.println("\n===== MENU ESCOLAR =====");
+            System.out.println("1 - Cadastrar aluno");
+            System.out.println("2 - Adicionar nota a um aluno");
+            System.out.println("3 - Listar alunos e médias");
+            System.out.println("4 - Buscar aluno por matrícula");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha: ");
+            opcao = sc.nextInt();
+            sc.nextLine(); // consumir quebra de linha
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Nome do aluno: ");
+                    String nome = sc.nextLine();
+                    System.out.print("Matrícula: ");
+                    int matricula = sc.nextInt();
+                    sc.nextLine();
+                    escola.adicionarAluno(new Aluno(nome, matricula));
+                    System.out.println("✅ Aluno cadastrado!");
+                    break;
+
+                case 2:
+                    System.out.print("Digite a matrícula do aluno: ");
+                    int matNota = sc.nextInt();
+                    sc.nextLine();
+                    Aluno alunoNota = escola.buscarAlunoPorMatricula(matNota);
+                    if (alunoNota != null) {
+                        System.out.print("Digite a nota: ");
+                        double nota = sc.nextDouble();
+                        sc.nextLine();
+                        alunoNota.adicionarNota(nota);
+                        System.out.println("✅ Nota adicionada!");
+                    } else {
+                        System.out.println("❌ Aluno não encontrado.");
+                    }
+                    break;
+
+                case 3:
+                    escola.listarAlunos();
+                    break;
+
+                case 4:
+                    System.out.print("Digite a matrícula do aluno: ");
+                    int matBusca = sc.nextInt();
+                    sc.nextLine();
+                    Aluno alunoBusca = escola.buscarAlunoPorMatricula(matBusca);
+                    if (alunoBusca != null) {
+                        System.out.println("📌 Dados do aluno:");
+                        System.out.println("Nome: " + alunoBusca.getNome());
+                        System.out.println("Matrícula: " + alunoBusca.getMatricula());
+                        System.out.println("Notas: " + alunoBusca.getNotas());
+                        System.out.println("Média: " + alunoBusca.calcularMedia());
+                        System.out.println("Situação: " + (alunoBusca.aprovado() ? "Aprovado" : "Reprovado"));
+                    } else {
+                        System.out.println("❌ Aluno não encontrado.");
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("👋 Saindo...");
+                    break;
+
+                default:
+                    System.out.println("❌ Opção inválida!");
+            }
+
+        } while (opcao != 0);
+
+        sc.close();
+    }
+}

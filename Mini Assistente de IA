@@ -1,0 +1,72 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        HashMap<String, String> respostas = new HashMap<>();
+        Random random = new Random();
+
+        // 🔹 Carrega a memória do arquivo (se existir)
+        try {
+            File file = new File("memoria.txt");
+            if (file.exists()) {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String linha;
+                while ((linha = br.readLine()) != null) {
+                    String[] partes = linha.split("=", 2);
+                    if (partes.length == 2) {
+                        respostas.put(partes[0], partes[1]);
+                    }
+                }
+                br.close();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar memória: " + e.getMessage());
+        }
+
+        System.out.print("👋 Qual será o nome do seu assistente? ");
+        String nome = scanner.nextLine();
+
+        System.out.println("Assistente " + nome + " iniciado! Fale com ele (digite '/sair' para encerrar)\n");
+
+        while (true) {
+            System.out.print("Você: ");
+            String pergunta = scanner.nextLine().toLowerCase();
+
+            if (pergunta.equals("/sair")) {
+                System.out.println(nome + ": Até logo! 👋");
+                break;
+            }
+
+            // Emoções aleatórias
+            String[] emocao = {"😊", "🤔", "😎", "😴", "😡", "😄"};
+            String emoji = emocao[random.nextInt(emocao.length)];
+
+            // Se já souber a resposta
+            if (respostas.containsKey(pergunta)) {
+                System.out.println(nome + " " + emoji + ": " + respostas.get(pergunta));
+            } else {
+                System.out.println(nome + " " + emoji + ": Não sei responder isso 😅. O que devo dizer?");
+                System.out.print("Você ensina: ");
+                String novaResposta = scanner.nextLine();
+                respostas.put(pergunta, novaResposta);
+                System.out.println(nome + ": Entendido! Vou lembrar disso 😉\n");
+            }
+        }
+
+        // 🔹 Salva tudo que foi aprendido
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("memoria.txt"));
+            for (String chave : respostas.keySet()) {
+                bw.write(chave + "=" + respostas.get(chave));
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar memória: " + e.getMessage());
+        }
+
+        scanner.close();
+    }
+}

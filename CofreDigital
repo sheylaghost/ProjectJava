@@ -1,0 +1,185 @@
+*🇧🇷 Este projeto é um Cofre Digital desenvolvido em Java.
+*Ele permite armazenar notas secretas de forma criptografada
+*e só exibe o conteúdo quando a senha mestre correta é informada.
+
+*🇺🇸 This project is a Digital Safe developed in Java.
+*It allows storing secret notes in an encrypted way
+*and only displays the content when the correct master password is provided.
+
+*🇧🇷
+*1) O usuário define uma senha mestre na primeira execução
+   *→ essa senha é protegida com SHA-256 (hash).
+
+*2) O sistema gera uma chave secreta AES
+   *→ usada para criptografar e descriptografar as notas.
+
+*3) O usuário pode:
+   *- Adicionar notas (são criptografadas e salvas no arquivo).
+   *- Listar notas (descriptografadas somente com a senha correta).
+   *- Excluir notas.
+   *- Sair (os dados ficam salvos em cofre.dat).
+
+*4) Todos os dados ficam armazenados em um arquivo chamado "cofre.dat".
+   *→ Ele guarda a senha hash e as notas criptografadas.
+
+*🇺🇸
+*1) The user defines a master password on the first execution
+   *→ this password is protected using SHA-256 (hash).
+
+*2) The system generates an AES secret key
+   *→ used to encrypt and decrypt the notes.
+
+*3) The user can:
+   *- Add notes (encrypted and saved into the file).
+   *- List notes (decrypted only with the correct password).
+   *- Delete notes.
+   *- Exit (data is saved in cofre.dat).
+
+*4) All data is stored in a file called "cofre.dat".
+   *→ It stores the hashed password and the encrypted notes.
+
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.io.*;
+import java.security.MessageDigest;
+import java.util.*;
+
+public class CofreDigital implements Serializable {
+
+    private static String senhaHash; // armazena o hash da senha mestre
+    private static SecretKey chaveSecreta; // chave de criptografia AES
+    private static List<String> notas = new ArrayList<>(); // notas criptografadas
+    private static final String ARQUIVO = "cofre.dat";
+
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+
+        // gerar chave secreta AES (mesma chave durante a execução)
+        KeyGenerator gerador = KeyGenerator.getInstance("AES");
+        gerador.init(128);
+        chaveSecreta = gerador.generateKey();
+
+        // carregar dados salvos, se existirem
+        carregarNotas();
+
+        // criar senha mestre (se ainda não existir)
+        if (senhaHash == null) {
+            System.out.print("Defina a senha mestre: ");
+            String senha = sc.nextLine();
+            senhaHash = gerarHash(senha);
+            salvarNotas();
+        }
+
+        // menu interativo
+        while (true) {
+            System.out.println("\n🔐 Cofre Digital");
+            System.out.println("1 - Adicionar nota");
+            System.out.println("2 - Listar notas");
+            System.out.println("3 - Excluir nota");
+            System.out.println("4 - Sair");
+            System.out.print("Escolha: ");
+            int opcao = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcao) {
+                case 1 -> adicionarNota(sc);
+                case 2 -> listarNotas(sc);
+                case 3 -> excluirNota(sc);
+                case 4 -> {
+                    salvarNotas();
+                    System.out.println("💾 Dados salvos. Saindo...");
+                    return;
+                }
+                default -> System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    private static void adicionarNota(Scanner sc) throws Exception {
+        System.out.print("Digite a nota secreta: ");
+        String nota = sc.nextLine();
+
+        String notaCriptografada = criptografar(nota);
+        notas.add(notaCriptografada);
+        salvarNotas();
+        System.out.println("✅ Nota adicionada com sucesso!");
+    }
+
+    private static void listarNotas(Scanner sc) throws Exception {
+        System.out.print("Digite a senha mestre: ");
+        String senha = sc.nextLine();
+
+        if (!senhaHash.equals(gerarHash(senha))) {
+            System.out.println("❌ Acesso negado!");
+            return;
+        }
+
+        if (notas.isEmpty()) {
+            System.out.println("📂 Nenhuma nota armazenada.");
+            return;
+        }
+
+        System.out.println("📜 Notas secretas:");
+        for (int i = 0; i < notas.size(); i++) {
+            String descriptografada = descriptografar(notas.get(i));
+            System.out.println((i + 1) + " - " + descriptografada);
+        }
+    }
+
+    private static void excluirNota(Scanner sc) {
+        System.out.print("Digite o número da nota para excluir: ");
+        int indice = sc.nextInt();
+        sc.nextLine();
+
+        if (indice > 0 && indice <= notas.size()) {
+            notas.remove(indice - 1);
+            salvarNotas();
+            System.out.println("🗑️ Nota excluída!");
+        } else {
+            System.out.println("❌ Índice inválido!");
+        }
+    }
+
+    // 🔹 Métodos de criptografia e hash
+    private static String gerarHash(String senha) throws Exception {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(senha.getBytes());
+        return Base64.getEncoder().encodeToString(hash);
+    }
+
+    private static String criptografar(String texto) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, chaveSecreta);
+        byte[] criptografado = cipher.doFinal(texto.getBytes());
+        return Base64.getEncoder().encodeToString(criptografado);
+    }
+
+    private static String descriptografar(String textoCriptografado) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, chaveSecreta);
+        byte[] decodificado = Base64.getDecoder().decode(textoCriptografado);
+        return new String(cipher.doFinal(decodificado));
+    }
+
+    // 🔹 Métodos de salvar e carregar em arquivo
+    @SuppressWarnings("unchecked")
+    private static void carregarNotas() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ARQUIVO))) {
+            senhaHash = (String) ois.readObject();
+            notas = (List<String>) ois.readObject();
+        } catch (Exception e) {
+            System.out.println("📂 Nenhum dado anterior encontrado.");
+        }
+    }
+
+    private static void salvarNotas() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+            oos.writeObject(senhaHash);
+            oos.writeObject(notas);
+        } catch (Exception e) {
+            System.out.println("❌ Erro ao salvar os dados.");
+        }
+    }
+}

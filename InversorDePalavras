@@ -1,0 +1,21 @@
+public class InversorDePalavras {
+
+    public static String inverterComStringBuilder(String palavra) {
+        // Cria um objeto StringBuilder com a palavra que você quer inverter
+        StringBuilder sb = new StringBuilder(palavra);
+        
+        // Usa o método reverse() para inverter a string
+        sb.reverse();
+        
+        // Converte o StringBuilder de volta para String e retorna o resultado
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        String texto = "Olá Mundo";
+        String textoInvertido = inverterComStringBuilder(texto);
+        
+        System.out.println("Palavra original: " + texto);
+        System.out.println("Palavra invertida: " + textoInvertido);
+    }
+}
