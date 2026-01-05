@@ -1,0 +1,65 @@
+🧴 Sistema de Agendamento Salon
+
+Português
+
+Descrição
+Projeto em Java desenvolvido como exercício de lógica e organização de código.
+O sistema simula um agendamento simples para um salão, executado via terminal.
+
+Funcionalidades
+
+Cadastrar agendamentos
+
+Listar agendamentos
+
+Impedir dois agendamentos no mesmo dia e horário
+
+Tecnologias
+
+Java (console)
+
+Estruturas de dados (List)
+
+Objetivo do exercício
+Praticar:
+
+Programação orientada a objetos
+
+Uso de listas
+
+Validação de regras de negócio
+
+Entrada de dados pelo terminal
+
+🧴 Salon Scheduling System
+
+English
+
+Description
+Java project developed as a logic and code organization exercise.
+The system simulates a simple salon scheduling application running in the terminal.
+
+Features
+
+Create appointments
+
+List appointments
+
+Prevent duplicate bookings for the same date and time
+
+Technologies
+
+Java (console)
+
+Data structures (List)
+
+Exercise goal
+Practice:
+
+Object-oriented programming
+
+List manipulation
+
+Business rule validation
+
+Terminal input handling
