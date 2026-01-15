@@ -1,0 +1,49 @@
+# 📅 Calendar in Java (Swing)
+
+## 📘 English
+
+This project consists of a **graphical calendar developed in Java using the Swing library**.  
+The goal is to practice building graphical user interfaces, handling dates, and organizing visual components in a desktop application.
+
+The calendar allows users to:
+- Select **month** and **year**
+- View weekdays and monthly days
+- Correctly display the number of days for each month
+- Dynamically update the calendar based on user selection
+
+This project is ideal for educational purposes, especially for those learning **Java**, **Swing**, and the modern date API (`java.time`).
+
+### 🛠 Technologies Used
+- Java
+- Swing (`JFrame`, `JPanel`, `JComboBox`, `JLabel`)
+- `java.time` (`LocalDate`, `YearMonth`)
+
+### ▶️ How to Run
+1. Open the project in a Java IDE (e.g., IntelliJ IDEA)
+2. Compile and run the main class
+3. The calendar graphical interface will be displayed
+
+---
+
+## 📘 Português
+
+Este projeto consiste em um **calendário gráfico desenvolvido em Java utilizando a biblioteca Swing**.  
+O objetivo é praticar a criação de interfaces gráficas, manipulação de datas e organização de componentes visuais em uma aplicação desktop.
+
+O calendário permite:
+- Selecionar **mês** e **ano**
+- Visualizar os dias da semana e do mês
+- Exibir corretamente a quantidade de dias de cada mês
+- Atualizar o calendário dinamicamente conforme a seleção do usuário
+
+Este projeto é ideal para fins educacionais, especialmente para quem está aprendendo **Java**, **Swing** e o uso da API moderna de datas (`java.time`).
+
+### 🛠 Tecnologias Utilizadas
+- Java
+- Swing (`JFrame`, `JPanel`, `JComboBox`, `JLabel`)
+- `java.time` (`LocalDate`, `YearMonth`)
+
+### ▶️ Como Executar
+1. Abra o projeto em uma IDE Java (ex: IntelliJ IDEA)
+2. Compile e execute a classe principal
+3. A interface gráfica do calendário será exibida
