@@ -1,0 +1,67 @@
+# RPG Medieval - Java Console Game
+
+## 🇧🇷 Português
+
+Este é um jogo simples de RPG medieval desenvolvido em Java para rodar no terminal.
+
+O jogador controla um herói que enfrenta um inimigo em batalhas por turnos.  
+Durante a luta, é possível atacar ou usar poções para recuperar vida.  
+O jogo termina quando o herói ou o inimigo fica sem vida.
+
+### Funcionalidades
+- Sistema de batalha por turnos
+- Ataque com dano aleatório
+- Uso de poções de cura
+- Inimigo com ataques automáticos
+- Execução no terminal (console)
+
+### Como executar
+1. Compile o arquivo:
+   ```bash
+   javac RpgMedieval.java
+Execute o jogo:
+
+bash
+Copiar código
+java RpgMedieval
+Tecnologias
+Java
+
+Terminal / Console
+
+🇺🇸 English
+This is a simple medieval RPG game developed in Java to run in the terminal.
+
+The player controls a hero who fights an enemy in turn-based combat.
+During the battle, the player can attack or use potions to restore health.
+The game ends when either the hero or the enemy runs out of health.
+
+Features
+Turn-based battle system
+
+Random damage attacks
+
+Healing potions
+
+Automatic enemy attacks
+
+Runs in the terminal (console)
+
+How to run
+Compile the file:
+
+bash
+Copiar código
+javac RpgMedieval.java
+Run the game:
+
+bash
+Copiar código
+java RpgMedieval
+Technologies
+Java
+
+Terminal / Console
+
+yaml
+Copiar código
