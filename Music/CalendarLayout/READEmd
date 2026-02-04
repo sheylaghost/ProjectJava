@@ -1,0 +1,106 @@
+📅 Modern Java Swing Calendar
+
+
+English
+
+💜 About the Project
+
+This is an advanced and highly customizable calendar component developed in Java Swing. The standout feature of this project is its Dynamic Layout system, which allows switching between different views (Date, Month, and Year) with smooth transitions and a modern interface inspired by neumorphic design.
+
+🚀 Features
+
+•
+Adaptive Layout: Dynamic switching between day, month, and year views.
+
+•
+Modern Design: Rounded corners, soft shadows, and clean typography.
+
+•
+Fluid Navigation: Interactive header for quick period switching.
+
+•
+Flexible Architecture: Model classes (ModelDate, ModelMonth) separated from visual logic.
+
+•
+Easy Integration: Ready to be used as a component in Dashboards or scheduling systems.
+
+🛠️ Technologies
+
+•
+Language: Java
+
+•
+Interface: Java Swing & AWT
+
+•
+Styling: Graphics2D for custom rendering.
+
+
+
+
+⚙️ How to Use / Como Usar
+
+1.
+Clone the repository / Clone o repositório:
+
+Bash
+
+
+git clone https://github.com/your-user/modern-java-calendar.git
+
+
+
+
+
+2.
+Open in IntelliJ / Abra no IntelliJ.
+
+3.
+Run the Main class / Execute a classe Main.
+
+⚠️ Note for Developers / Nota para Desenvolvedores
+
+If you encounter access errors like 'CalendarLayout' has private access, ensure that the internal layout classes in Calendar.java and PanelHeader.java are set to public.
+
+Se encontrar erros de acesso como 'CalendarLayout' has private access, certifique-se de que as classes internas de layout em Calendar.java e PanelHeader.java estão configuradas como public.
+
+
+
+
+Made with 💜 to enhance Java Desktop UI.
+
+
+Português
+
+💜 Sobre o Projeto
+
+Este é um componente de calendário avançado e altamente customizável desenvolvido em Java Swing. O diferencial deste projeto é o seu sistema de Layout Dinâmico, que permite alternar entre diferentes visualizações (Data, Mês e Ano) com transições suaves e uma interface moderna inspirada no design neumórfico.
+
+🚀 Funcionalidades
+
+•
+Layout Adaptável: Troca dinâmica entre visualizações de dias, meses e anos.
+
+•
+Design Moderno: Bordas arredondadas, sombras suaves e tipografia limpa.
+
+•
+Navegação Fluida: Cabeçalho interativo para troca rápida de períodos.
+
+•
+Arquitetura Flexível: Classes de modelo (ModelDate, ModelMonth) separadas da lógica visual.
+
+•
+Fácil Integração: Pronto para ser usado como um componente em Dashboards ou sistemas de agendamento.
+
+🛠️ Tecnologias
+
+•
+Linguagem: Java
+
+•
+Interface: Java Swing & AWT
+
+•
+Estilização: Graphics2D para renderização customizada.
+
