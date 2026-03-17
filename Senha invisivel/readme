@@ -1,0 +1,46 @@
+Senha Invisível / Invisible Password
+
+EN
+
+Simple Java program that validates a password without displaying the typed characters in the terminal.
+
+How to run
+
+Navigate to the src folder:
+
+cd "path/to/senha invisivel/src"
+
+Compile:
+
+javac Main.java
+
+Run:
+
+java Main
+
+The correct password is 1234.
+
+Important: run from the system terminal, not from an IDE — IntelliJ and VS Code do not support invisible password input.
+
+Senha Invisível / Invisible Password
+
+PT-BR
+
+Programa simples em Java que valida uma senha sem exibir os caracteres digitados no terminal.
+Como executar
+
+Navegue até a pasta src:
+
+cd "caminho/para/senha invisivel/src"
+
+Compile:
+
+javac Main.java
+
+Execute:
+
+java Main
+
+A senha correta é 1234.
+
+Importante: execute pelo terminal do sistema, não pela IDE — o IntelliJ e o VS Code não suportam entrada de senha invisível.
